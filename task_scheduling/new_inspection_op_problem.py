@@ -319,8 +319,8 @@ def main():
 
     for mc in max_cost:
         solution, objective, _ = tsu.solve_problem(inspection_op_solver, cost, cost_max=mc, output_flag=1,
-                                                   time_limit=30,
-                                                   mip_gap=0.001)
+                                                   time_limit=300,
+                                                   mip_gap=0.01)
 
         print("Objective: {0}".format(objective))
 
