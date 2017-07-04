@@ -141,9 +141,19 @@ def inspection_op_solver(cost, profit=None, cost_max=None, idx_start=None, idx_f
     for i in range(1, num_sectors + 1):
         idx_close = 2 * i - 1
         idx_far = 2 * i
-        expr += ei_vars[idx_close] * profit[idx_close] * rewards[i-1] + gu.quicksum(
-            (ei_vars[idx_far + j] - ei_vars[idx_close])*ei_vars[idx_far + j] * profit[idx_far + j] *rewards[i-1] for j in range(-2, 4, 2) if
+        expr += ei_vars[idx_close] * profit[idx_close] * rewards[i - 1] + gu.quicksum(
+            (ei_vars[idx_far + j] - ei_vars[idx_close]) * ei_vars[idx_far + j] * profit[
+                idx_far + j] * rewards[i - 1] for j in range(-2, 4, 2) if
             idx_far + j > idx_start and idx_far + j < idx_finish)
+        # actual_reward = m.addVar(vtype=gu.GRB.CONTINUOUS)
+        # m.update()
+        # m.addConstr(actual_reward, gu.GRB.LESS_EQUAL,
+        #             ei_vars[idx_close] * profit[idx_close] * rewards[i - 1])
+        # for j in range(-2, 4, 2):
+        #     if idx_far + j > idx_start and idx_far + j < idx_finish:
+        #         m.addConstr(actual_reward, gu.GRB.LESS_EQUAL,
+        #                     ei_vars[idx_far + j] * profit[idx_far + j] * rewards[i - 1])
+        # expr += actual_reward
     print(expr)
     m.setObjective(expr, gu.GRB.MAXIMIZE)
 
