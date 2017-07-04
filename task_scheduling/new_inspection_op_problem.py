@@ -194,9 +194,9 @@ def inspection_op_solver(cost, profit=None, cost_max=None, idx_start=None, idx_f
         print(close_entry)
         far_entry = gu.quicksum(e_vars[j, idx_far] for j in V.difference([idx_finish]) if j != idx_far)
         print(far_entry)
-        m.addConstr(close_entry <= 1, "v_" + str(i) + "_close_entry")
+        # m.addConstr(close_entry <= 1, "v_" + str(i) + "_close_entry")
         m.addConstr(close_entry == ei_vars[idx_close], "vi_" + str(i) + "_close_entry")
-        m.addConstr(far_entry <= 1, "v_" + str(i) + "_far_entry")
+        # m.addConstr(far_entry <= 1, "v_" + str(i) + "_far_entry")
         m.addConstr(far_entry == ei_vars[idx_far], "vi_" + str(i) + "_far_entry")
 
     for i in range(1, num_sectors + 1):
@@ -204,9 +204,9 @@ def inspection_op_solver(cost, profit=None, cost_max=None, idx_start=None, idx_f
         idx_far = 2 * i
         close_exit = gu.quicksum(e_vars[idx_close, j] for j in V.difference([idx_start]))
         far_exit = gu.quicksum(e_vars[idx_far, j] for j in V.difference([idx_start]))
-        m.addConstr(close_exit <= 1, "v_" + str(i) + "_close_exit")
+        # m.addConstr(close_exit <= 1, "v_" + str(i) + "_close_exit")
         m.addConstr(ei_vars[idx_close] == close_exit, "vi_" + str(i) + "_close_exit")
-        m.addConstr(far_exit <= 1, "v_" + str(i) + "_far_exit")
+        # m.addConstr(far_exit <= 1, "v_" + str(i) + "_far_exit")
         m.addConstr(ei_vars[idx_far] == far_exit, "vi_" + str(i) + "_far_exit")
     m.update()
 
